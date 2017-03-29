@@ -53,7 +53,7 @@ For name detection, we have two approach to deal with this problem.
 
 ## Phone Number / DOB Detection
 
-Details can be found at this another report here: 
+Details can be found at this another report [here](https://github.com/hexiaoyuhaha/PatternRecognition/blob/master/PhoneNumber_Date.md): 
 
 Some business rules could be:
 
