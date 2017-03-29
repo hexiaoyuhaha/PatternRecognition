@@ -1,0 +1,8 @@
+Following are the data elements that we would like the CMU students to work on obfuscating and/or pattern recognition.  I realize some of these fields are not in the data set that we provided them - but that means that we are interested in pattern recognition for those.
+ 
+ - SSN# or Driver’s license #’s
+- Credit card numbers
+- Health Insurance or Benefit eligibility ID numbers
+- DOB (day/month/year) IF linked to First and Last name (or First Initial and last name)
+- Health, Disability, or prescription Drug or Health Insurance information IF linked to First and Last name (or First Initial and last name)
+- Any information for children under the age of 13
