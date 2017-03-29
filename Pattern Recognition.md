@@ -5,9 +5,7 @@ Our goal is to:
 - Design high level data processing pipeline for pattern recognition
 - Design different workflow to accommodate different business requirement
 
-Currently we are working on how to identify the category of any random given column. We will discuss the following types:
-
-**Name, Location, Phone Number, DOB, SSN#, Credit card number **
+Currently we are working on how to identify the category of any random given column. We will discuss the following types: **Name, Location, Phone Number, DOB, SSN#, Credit card number **
 
 
 
@@ -43,7 +41,7 @@ For name detection, we have two approach to deal with this problem.
 
 2. Use free software for name matching. One commonly used software is [Standford Named Entity Recognizer](https://nlp.stanford.edu/software/CRF-NER.shtml). Below is a screenshot of [online demo](http://nlp.stanford.edu:8080/ner/process):
 
-   <img src="/Users/hexiaoyu/Desktop/capstone/Pattern/images/StandfordNER.png" width="500">
+   <img src="images/StandfordNER.png" width="500">
 
    ​
 
