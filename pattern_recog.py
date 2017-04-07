@@ -34,6 +34,7 @@ else:
 import csv
 import re
 from collections import Counter
+from stanfordHelper import *
 
 names = {
     'PER': "Person Name",
@@ -54,16 +55,16 @@ regEXP = {
     'PHO': r'\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*',
     'CRE': r'(?:\d[ -]*?){13,16}',
     'SSN': r'(?!\b(\d)\1+-(\d)\1+-(\d)\1+\b)(?!123-45-6789|219-09-9999|078-05-1120)(?!666|000|9\d{2})\d{3}-(?!00)\d{2}-(?!0{4})\d{4}',
-    'ZIP': r'[0-9]{5}(?:-[0-9]{4})?'
+    'ZIP': r'[0-9]{5}(?:-[0-9]{4})?',
+    'SEX': r'(male|female|f|m)'
 }
 
 # This defines the order we are going to check
-regName = ['EMA', 'DOB', 'PHO', 'CRE', 'SSN', 'ZIP']
+regName = ['EMA', 'DOB', 'PHO', 'CRE', 'SSN', 'ZIP', 'SEX']
 
 
 def readFirst10LineFromCSV(filepath, linelimit):
     with open("Pattern_recog_data.csv") as csvfile:
-
         reader = csv.reader(csvfile, delimiter=',')
         data = []
         i = 0
@@ -78,18 +79,17 @@ def readFirst10LineFromCSV(filepath, linelimit):
 
 
 
-
-
 def predict_type(item):
-    if item.isalpha():
-        return 'PER'
-    else:
-        for type_name in regName:
-            regexpstr = regEXP[type_name] + r'$'
-            pattern = re.compile(regexpstr)
+    for type_name in regName:
+        regexpstr = regEXP[type_name] + r'$'
+        pattern = re.compile(regexpstr)
+        if type_name == "SEX":
+            match = pattern.match(item.strip().lower())
+        else:
             match = pattern.match(item.strip())
-            if match is not None:
-                return type_name
+        if match is not None:
+            return type_name
+    # return findType(item)
     return 'UNK'
 
 
