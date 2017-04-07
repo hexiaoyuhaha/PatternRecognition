@@ -18,15 +18,18 @@ Here, we only provide a simple pattern recognition work flow for identifying the
 ```
 Input: String data
 
-If data does not conatin digits:
-	match person name
-    match location
+if alphabetic:
+	match Person Name
+    match Location
+    default unknowfield
 else:
-	match date
-	match phone
+    match Email
+	match DOB
+	match Phone Number
+	match Credit Card Number
 	match SSN
-	match zipcode
-	match credit card number
+	match Zipcode
+	defalt unknowfield
 ```
 
 The data format might be inconsisten, in this case, we can determine the data type of by majorities. 
@@ -49,7 +52,11 @@ For name detection, we have two approach to deal with this problem.
 
    ​
 
-## Phone Number / DOB Detection
+## Phone Number
+
+```
+PHONE = \s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*
+```
 
 Details can be found at this another report [here](https://github.com/hexiaoyuhaha/PatternRecognition/blob/master/PhoneNumber_Date.md): 
 
@@ -58,6 +65,12 @@ Some business rules could be:
 - Detect country code and area code (Use the phone number country code and area code to find out the distribution of customer)
 - Allow parenthesis () in the phone number
 
+
+## DOB Detection
+
+```
+DATE = \d{1,2}[\-\/]\d{1,2}[\-\/]\d{2,4}
+```
 
 
 ## SSN
@@ -110,7 +123,7 @@ A most simple matching regular expression is:
 
 ```
 # Please remove all the space and dash before matcing the regular expression.
-\b4[0-9]{12}(?:[0-9]{3})?\b.
+(?:\d[ -]*?){13,16}
 ```
 
 This regular expression can be easily alterd to acommondate different bussiness requirement. Some example businees requirement could be:
@@ -140,4 +153,29 @@ Example businees requirement could be:
 
 - Only allow 4-digit or 9-digit zipcode matching
 - 9-digit zipcode must have dash seperating them
+
+
+
+
+# Appendix
+
+```
+EMAIL = [a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+
+PHONE = \s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*
+DATE = \d{1,2}[\-\/]\d{1,2}[\-\/]\d{2,4}
+CRE = (?:\d[ -]*?){13,16}
+SSN = (?!\b(\d)\1+-(\d)\1+-(\d)\1+\b)(?!123-45-6789|219-09-9999|078-05-1120)(?!666|000|9\d{2})\d{3}-(?!00)\d{2}-(?!0{4})\d{4}
+ZIP = [0-9]{5}(?:-[0-9]{4})?
+
+
+DATE = {DIGIT}{1,2}[\-\/]{DIGIT}{1,2}[\-\/]{DIGIT}{2,4}
+FILENAME = ({LETTER}|{DIGIT})+([-._/]({LETTER}|{DIGIT})+)*([.]{FILENAME_EXT})
+ISO8601DATETIME = [0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[x0-9]{2}:[0-9]{2}Z?
+FULLURL = https?:\/\/[^ \t\n\f\r\"<>|(){}]+[^ \t\n\f\r\"<>|.!?(){},-]
+LIKELYURL = ((www\.([^ \t\n\f\r\"<>|.!?(){},]+\.)+[a-zA-Z]{2,4})|(([^ \t\n\f\r\"`'<>|.!?(){},-_$]+\.)+(com|net|org|edu)))(\/[^ \t\n\f\r\"<>|()]+[^ \t\n\f\r\"<>|.!?(){},-])?
+ABMONTH = Jan|Feb|Mar|Apr|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec
+ABDAYS = Mon|Tue|Tues|Wed|Thu|Thurs|Fri
+ABSTATE = Ala|Ariz|[A]z|[A]rk|Calif|Colo|Conn|Ct|Dak|[D]el|Fla|Ga|[I]ll|Ind|Kans?|Ky|[L]a|[M]ass|Md|Mich|Minn|[M]iss|Mo|Mont|Neb|Nev|Okla|[O]re|[P]a|Penn|Tenn|[T]ex|Va|Vt|[W]ash|Wisc?|Wyo
+
+```
 
